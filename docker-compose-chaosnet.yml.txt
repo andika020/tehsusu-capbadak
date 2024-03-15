@@ -3,11 +3,11 @@ name: chaosnet
 services:
   nibiru-0:
     build:
-      context: ../.. # nibiru project folder
+      context: ../.. # capbadak project folder
       dockerfile: ./contrib/docker/chaosnet.Dockerfile # relative to context directory (i.e. nibiru project folder)
       args:
         MNEMONIC: guard cream sadness conduct invite crumble clock pudding hole grit liar hotel maid produce squeeze return argue turtle know drive eight casino maze host
-        CHAIN_ID: nibiru-localnet-0
+        CHAIN_ID: capbadak-localnet-0
         RPC_PORT: 26657
         GRPC_PORT: 9090
         LCD_PORT: 1317
@@ -22,29 +22,29 @@ services:
       retries: 3
       start_period: 10s
     volumes:
-      - nibid-data-0:/root/.nibid/data:rw
+      - badak-data-0:/root/.badak/data:rw
 
   pricefeeder-0:
-    image: ghcr.io/nibiruchain/pricefeeder:latest
+    image: ghcr.io/capbadakchain/pricefeeder:latest
     restart: always
     environment:
-      CHAIN_ID: nibiru-localnet-0
-      GRPC_ENDPOINT: nibiru-0:9090
-      WEBSOCKET_ENDPOINT: ws://nibiru-0:26657/websocket
+      CHAIN_ID: capbadak-localnet-0
+      GRPC_ENDPOINT: capbadak-0:9090
+      WEBSOCKET_ENDPOINT: ws://capbadak-0:26657/websocket
       FEEDER_MNEMONIC: empower dice proud brick treat reward pull jeans right rubber infant hamster pet foster among crush quick report rival bracket easily mouse topple absorb
       EXCHANGE_SYMBOLS_MAP: '{ "bitfinex": { "ubtc:uusd": "tBTCUSD", "ueth:uusd": "tETHUSD", "uusdt:uusd": "tUSTUSD" }, "binance": { "ubtc:uusd": "BTCUSD", "ueth:uusd": "ETHUSD", "uusdt:uusd": "USDTUSD", "uusdc:uusd": "USDCUSD", "uatom:uusd": "ATOMUSD", "ubnb:uusd": "BNBUSD", "uavax:uusd": "AVAXUSD", "usol:uusd": "SOLUSD", "uada:uusd": "ADAUSD", "ubtc:unusd": "BTCUSD", "ueth:unusd": "ETHUSD", "uusdt:unusd": "USDTUSD", "uusdc:unusd": "USDCUSD", "uatom:unusd": "ATOMUSD", "ubnb:unusd": "BNBUSD", "uavax:unusd": "AVAXUSD", "usol:unusd": "SOLUSD", "uada:unusd": "ADAUSD" } }'
-      VALIDATOR_ADDRESS: nibivaloper1zaavvzxez0elundtn32qnk9lkm8kmcszuwx9jz
+      VALIDATOR_ADDRESS: badakvaloper1zaavvzxez0elundtn32qnk9lkm8kmcszuwx9jz
     depends_on:
       nibiru-0:
         condition: service_healthy
 
   nibiru-1:
     build:
-      context: ../.. # nibiru project folder
-      dockerfile: ./contrib/docker/chaosnet.Dockerfile # relative to context directory (i.e. nibiru project folder)
+      context: ../.. # capbadak project folder
+      dockerfile: ./contrib/docker/chaosnet.Dockerfile # relative to context directory (i.e. capbadak project folder)
       args:
         MNEMONIC: gallery grass trick siren sunset chimney crawl hover eagle rug dice quick false dizzy abandon issue history transfer lyrics clever any narrow taste exotic
-        CHAIN_ID: nibiru-localnet-1
+        CHAIN_ID: capbadak-localnet-1
         RPC_PORT: 36657
         GRPC_PORT: 19090
         LCD_PORT: 11317
@@ -59,20 +59,20 @@ services:
       - 11317:11317
       - 19090:19090
     volumes:
-      - nibid-data-1:/root/.nibid/data:rw
+      - nibid-data-1:/root/.badakd/data:rw
 
   pricefeeder-1:
-    image: ghcr.io/nibiruchain/pricefeeder:latest
+    image: ghcr.io/capbadak/pricefeeder:latest
     restart: always
     environment:
-      CHAIN_ID: nibiru-localnet-1
+      CHAIN_ID: capbadak-localnet-1
       GRPC_ENDPOINT: nibiru-1:19090
-      WEBSOCKET_ENDPOINT: ws://nibiru-1:36657/websocket
+      WEBSOCKET_ENDPOINT: ws://capbadak-1:36657/websocket
       FEEDER_MNEMONIC: empower dice proud brick treat reward pull jeans right rubber infant hamster pet foster among crush quick report rival bracket easily mouse topple absorb
       EXCHANGE_SYMBOLS_MAP: '{ "bitfinex": { "ubtc:uusd": "tBTCUSD", "ueth:uusd": "tETHUSD", "uusdt:uusd": "tUSTUSD" }, "binance": { "ubtc:uusd": "BTCUSD", "ueth:uusd": "ETHUSD", "uusdt:uusd": "USDTUSD", "uusdc:uusd": "USDCUSD", "uatom:uusd": "ATOMUSD", "ubnb:uusd": "BNBUSD", "uavax:uusd": "AVAXUSD", "usol:uusd": "SOLUSD", "uada:uusd": "ADAUSD", "ubtc:unusd": "BTCUSD", "ueth:unusd": "ETHUSD", "uusdt:unusd": "USDTUSD", "uusdc:unusd": "USDCUSD", "uatom:unusd": "ATOMUSD", "ubnb:unusd": "BNBUSD", "uavax:unusd": "AVAXUSD", "usol:unusd": "SOLUSD", "uada:unusd": "ADAUSD" } }'
-      VALIDATOR_ADDRESS: nibivaloper18mxturdh0mjw032c3zslgkw63cukkl4qatcdn4
+      VALIDATOR_ADDRESS: badakvaloper18mxturdh0mjw032c3zslgkw63cukkl4qatcdn4
     depends_on:
-      nibiru-1:
+      capbadak-1:
         condition: service_healthy
 
   hermes-keys-task-0:
@@ -193,9 +193,9 @@ services:
 
   faucet:
     restart: always
-    image: ghcr.io/nibiruchain/go-faucet:latest
+    image: ghcr.io/capbadakchain/go-faucet:latest
     environment:
-      NODE: nibiru-0:9090
+      NODE: capbadak-0:9090
       MNEMONIC: undo donkey arena rule old portion long forget rescue post stuff normal reduce raw unable warrior method stairs valley enhance glory lens sign zero
       SEND_COINS: 11000000unibi
       MAX_SEND_COINS: 110000000unibi
